@@ -428,13 +428,13 @@ const index = () => {
       <View style={{ marginHorizontal: 14 }}>
         {option == "Photos" && (
           <View>
-            {/*<Carousel
+            <Carousel
               data={images}
               renderItem={renderImageCarousel}
               sliderWidth={350}
               itemWidth={300}
               onSnapToItem={(index) => setActiveSlide(index)}
-            />*/}
+            />
 
             <View style={{ marginTop: 25 }}>
               <Text>Add a picture of yourself</Text>
