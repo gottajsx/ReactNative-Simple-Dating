@@ -21,7 +21,7 @@ const select = () => {
 
   const handleMatch = async (selectedUserId) => {
     try {
-      await axios.post("http://localhost:3000/create-match", {
+      await axios.post("http://10.0.2.2:3000/create-match", {
         currentUserId: userId,
         selectedUserId: selectedUserId,
       });

@@ -22,7 +22,7 @@ const index = () => {
   }, []);
   const fetchUserDescription = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/${userId}`);
+      const response = await axios.get(`http://10.0.2.2:3000/users/${userId}`);
       console.log(response);
       const user = response.data;
       setUser(user?.user);
@@ -33,7 +33,7 @@ const index = () => {
 
   const fetchProfiles = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/profiles", {
+      const response = await axios.get("http://:3000/profiles", {
         params: {
           userId: userId,
           gender: user?.gender,

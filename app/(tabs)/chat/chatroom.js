@@ -22,7 +22,7 @@ const chatroom = () => {
   const [message, setMessage] = useState("");
   const params = useLocalSearchParams();
   const [messages, setMessages] = useState([]);
-  const socket = io("http://localhost:8000");
+  const socket = io("http://10.0.2.2:8000");
   socket.on("connect", () => {
     console.log("Connected to the Socket.IO server");
   });
@@ -81,7 +81,7 @@ const chatroom = () => {
       const senderId = params?.senderId;
       const receiverId = params?.receiverId;
 
-      const response = await axios.get("http://localhost:3000/messages", {
+      const response = await axios.get("http://10.0.2.2:3000/messages", {
         params: { senderId, receiverId },
       });
 

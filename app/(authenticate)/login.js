@@ -38,7 +38,7 @@ const login = () => {
       email: email,
       password: password,
     };
-    axios.post("http://localhost:3000/login",user).then((response) => {
+    axios.post("http://10.0.2.2:3000/login",user).then((response) => {
         console.log(response);
         const token = response.data.token;
         AsyncStorage.setItem("auth",token);
