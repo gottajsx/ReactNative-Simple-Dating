@@ -14,6 +14,7 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import axios from "axios";
+import { API_URL } from '@env';
 
 const register = () => {
   const [name, setName] = useState("");
@@ -29,7 +30,7 @@ const register = () => {
 
     // send a POST  request to the backend API to register the user
     axios
-      .post("http://10.0.2.2:3000/register", user)
+      .post(`${API_URL}/register`, user)
       .then((response) => {
         console.log(response);
         Alert.alert(

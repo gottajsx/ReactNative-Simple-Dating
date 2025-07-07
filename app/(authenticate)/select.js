@@ -5,6 +5,7 @@ import "core-js/stable/atob";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios"
 import { useRouter } from "expo-router";
+import { API_URL } from '@env';
 
 const select = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const select = () => {
   },[])
   const updateUserGender = async () => {
     try{
-        const response = await axios.put(`http://10.0.2.2:3000/users/${userId}/gender`,{
+        const response = await axios.put(`${API_URL}/users/${userId}/gender`,{
             gender:option
         });
 

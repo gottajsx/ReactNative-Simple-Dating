@@ -11,6 +11,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
 import axios from "axios";
+import { API_URL } from '@env';
 
 const select = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const select = () => {
 
   const handleMatch = async (selectedUserId) => {
     try {
-      await axios.post("http://10.0.2.2:3000/create-match", {
+      await axios.post(`${API_URL}/create-match`, {
         currentUserId: userId,
         selectedUserId: selectedUserId,
       });

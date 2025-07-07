@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from '@env';
 
 
 const login = () => {
@@ -38,7 +39,7 @@ const login = () => {
       email: email,
       password: password,
     };
-    axios.post("http://10.0.2.2:3000/login",user).then((response) => {
+    axios.post(`${API_URL}/login`,user).then((response) => {
         console.log(response);
         const token = response.data.token;
         AsyncStorage.setItem("auth",token);

@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Profile from "../../../components/Profile";
+import { API_URL } from '@env';
 
 const index = () => {
   const [userId, setUserId] = useState("");
@@ -22,7 +23,7 @@ const index = () => {
   }, []);
   const fetchUserDescription = async () => {
     try {
-      const response = await axios.get(`http://10.0.2.2:3000/users/${userId}`);
+      const response = await axios.get(`${API_URL}/users/${userId}`);
       console.log(response);
       const user = response.data;
       setUser(user?.user);
@@ -33,7 +34,7 @@ const index = () => {
 
   const fetchProfiles = async () => {
     try {
-      const response = await axios.get("http://:3000/profiles", {
+      const response = await axios.get(`${API_URL}/profiles`, {
         params: {
           userId: userId,
           gender: user?.gender,

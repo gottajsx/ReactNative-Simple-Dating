@@ -16,13 +16,15 @@ import { Entypo, Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { io } from "socket.io-client";
 import axios from "axios";
+import { API_URL } from '@env';
+import { API_SOCKET } from '@env';
 
 const chatroom = () => {
   const navigation = useNavigation();
   const [message, setMessage] = useState("");
   const params = useLocalSearchParams();
   const [messages, setMessages] = useState([]);
-  const socket = io("http://10.0.2.2:8000");
+  const socket = io(`${API_SOCKET}`);
   socket.on("connect", () => {
     console.log("Connected to the Socket.IO server");
   });
@@ -81,7 +83,7 @@ const chatroom = () => {
       const senderId = params?.senderId;
       const receiverId = params?.receiverId;
 
-      const response = await axios.get("http://10.0.2.2:3000/messages", {
+      const response = await axios.get(`${API_URL}/messages`, {
         params: { senderId, receiverId },
       });
 
