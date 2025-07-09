@@ -7,12 +7,11 @@ import {
   Pressable,
   TextInput,
   Button,
-  FlatList,
+  // FlatList, // <<< Supprimez ceci
   Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-//rimport Carousel from "react-native-snap-carousel";
 import Carousel from "react-native-reanimated-carousel";
 import axios from "axios";
 import "core-js/stable/atob";
@@ -276,7 +275,8 @@ const index = () => {
         <Image
           style={{ width: "100%", height: 200, resizeMode: "cover" }}
           source={{
-            uri: "https://static.vecteezy.com/system/resources/thumbnails/018/977/074/original/animated-backgrounds-with-liquid-motion-graphic-background-cool-moving-animation-for-your-background-free-video.jpg",
+            uri:
+"https://static.vecteezy.com/system/resources/thumbnails/018/977/074/original/animated-backgrounds-with-liquid-motion-graphic-background-cool-moving-animation-for-your-background-free-video.jpg",
           }}
         />
         <View>
@@ -308,7 +308,8 @@ const index = () => {
                     uri: randomImage,
                 }}
               />
-              <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 6 }}>
+              <Text style={{ fontSize: 16, fontWeight: "600",
+marginTop: 6 }}>
                 Bangalore
               </Text>
               <Text style={{ marginTop: 4, fontSize: 15 }}>
@@ -459,11 +460,13 @@ const index = () => {
                 <TextInput
                   value={imageUrl}
                   onChangeText={(text) => setImageUrl(text)}
-                  style={{ color: "gray", marginVertical: 10, width: 300 }}
+                  style={{ color: "gray", marginVertical: 10, width: 300
+ }}
                   placeholder="enter your image url"
                 />
               </View>
-              <Button onPress={handleAddImage} style={{ marginTop: 5 }} title="Add Image" />
+              <Button onPress={handleAddImage} style={{ marginTop: 5
+ }} title="Add Image" />
             </View>
           </View>
         )}
@@ -500,7 +503,8 @@ const index = () => {
                     {item?.name}
                   </Text>
                   {selectedTurnOns.includes(item?.name) && (
-                    <AntDesign name="checkcircle" size={18} color="#17B169" />
+                    <AntDesign name="checkcircle" size={18}
+color="#17B169" />
                   )}
                 </View>
                 <Text
@@ -521,61 +525,60 @@ const index = () => {
 
       <View style={{ marginHorizontal: 14 }}>
         {option == "Looking For" && (
-          <>
-            <View>
-              <FlatList
-                columnWrapperStyle={{ justifyContent: "space-between" }}
-                numColumns={2}
-                data={data}
-                renderItem={({ item }) => (
-                  <Pressable
-                    onPress={() => handleOption(item?.name)}
-                    style={{
-                      backgroundColor: lookingOptions.includes(item?.name)
-                        ? "#fd5c63"
-                        : "white",
-                      padding: 16,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: 150,
-                      margin: 10,
-                      borderRadius: 5,
-                      borderColor: "#fd5c63",
-                      borderWidth: lookingOptions.includes(item?.name)
-                        ? "transparent"
-                        : 0.7,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        fontWeight: "500",
-                        fontSize: 13,
-                        color: lookingOptions.includes(item?.name)
-                          ? "white"
-                          : "black",
-                      }}
-                    >
-                      {item?.name}
-                    </Text>
-                    <Text
-                      style={{
-                        color: lookingOptions.includes(item?.name)
-                          ? "white"
-                          : "gray",
-                        textAlign: "center",
-                        width: 140,
-                        marginTop: 10,
-                        fontSize: 13,
-                      }}
-                    >
-                      {item?.description}
-                    </Text>
-                  </Pressable>
-                )}
-              />
-            </View>
-          </>
+          // Remplacer FlatList par une simple itération avec .map()
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
+            {data.map((item) => (
+              <Pressable
+                onPress={() => handleOption(item?.name)}
+                style={{
+                  backgroundColor: lookingOptions.includes(item?.name)
+                    ? "#fd5c63"
+                    : "white",
+                  padding: 16,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "48%", // Ajustez la largeur pour deux colonnes avec un peu d'espace
+                  marginVertical: 5, // Ajouté pour un espacement vertical
+                  borderRadius: 5,
+                  borderColor: "#fd5c63",
+                  borderWidth: lookingOptions.includes(item?.name) ? 0 : 0.7, // 0 si sélectionné, 0.7 sinon
+                }}
+                key={item.id}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "500",
+                    fontSize: 13,
+                    color: lookingOptions.includes(item?.name)
+                      ? "white"
+                      : "black",
+                  }}
+                >
+                  {item?.name}
+                </Text>
+                <Text
+                  style={{
+                    color: lookingOptions.includes(item?.name)
+                      ? "white"
+                      : "gray",
+                    textAlign: "center",
+                    width: "100%", // Utilisez 100% pour remplir la largeur du Pressable
+                    marginTop: 10,
+                    fontSize: 13,
+                  }}
+                >
+                  {item?.description}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
         )}
       </View>
     </ScrollView>
