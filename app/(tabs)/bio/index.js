@@ -7,8 +7,8 @@ import {
   Pressable,
   TextInput,
   Button,
-  // FlatList, // <<< Supprimez ceci
   Alert,
+  Dimensions, // <<< Ajoutez cette importation
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Entypo, AntDesign } from "@expo/vector-icons";
@@ -18,6 +18,9 @@ import "core-js/stable/atob";
 import { jwtDecode } from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from '@env';
+
+// Obtenez la largeur de l'écran
+const windowWidth = Dimensions.get("window").width; // <<< Ajoutez cette ligne
 
 const index = () => {
   const [option, setOption] = useState("AD");
@@ -433,8 +436,8 @@ marginTop: 6 }}>
             <Carousel
               data={images}
               renderItem={renderImageCarousel}
-              sliderWidth={350}
-              itemWidth={300}
+              width={windowWidth - 28} // <<< Définissez la largeur ici (largeur de l'écran - 2 * marginHorizontal)
+              height={300} // <<< Vous pouvez aussi définir une hauteur si vous voulez
               onSnapToItem={(index) => setActiveSlide(index)}
             />
 
@@ -525,7 +528,6 @@ color="#17B169" />
 
       <View style={{ marginHorizontal: 14 }}>
         {option == "Looking For" && (
-          // Remplacer FlatList par une simple itération avec .map()
           <View
             style={{
               flexDirection: "row",
@@ -543,11 +545,11 @@ color="#17B169" />
                   padding: 16,
                   justifyContent: "center",
                   alignItems: "center",
-                  width: "48%", // Ajustez la largeur pour deux colonnes avec un peu d'espace
-                  marginVertical: 5, // Ajouté pour un espacement vertical
+                  width: "48%",
+                  marginVertical: 5,
                   borderRadius: 5,
                   borderColor: "#fd5c63",
-                  borderWidth: lookingOptions.includes(item?.name) ? 0 : 0.7, // 0 si sélectionné, 0.7 sinon
+                  borderWidth: lookingOptions.includes(item?.name) ? 0 : 0.7,
                 }}
                 key={item.id}
               >
@@ -569,7 +571,7 @@ color="#17B169" />
                       ? "white"
                       : "gray",
                     textAlign: "center",
-                    width: "100%", // Utilisez 100% pour remplir la largeur du Pressable
+                    width: "100%",
                     marginTop: 10,
                     fontSize: 13,
                   }}
