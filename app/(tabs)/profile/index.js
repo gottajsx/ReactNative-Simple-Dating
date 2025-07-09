@@ -11,6 +11,7 @@ const index = () => {
   const [userId, setUserId] = useState("");
   const [user, setUser] = useState();
   const [profiles, setProfiles] = useState([]);
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem("auth");
@@ -21,6 +22,7 @@ const index = () => {
 
     fetchUser();
   }, []);
+
   const fetchUserDescription = async () => {
     try {
       const response = await axios.get(`${API_URL}/users/${userId}`);
@@ -43,30 +45,42 @@ const index = () => {
         },
       });
 
+      // Il est crucial que chaque profil ait un ID unique.
+      // Assurez-vous que response.data.profiles contient des objets avec un 'id' ou '_id' unique.
       setProfiles(response.data.profiles);
     } catch (error) {
       console.log("error", error);
     }
   };
+
   useEffect(() => {
     if (userId) {
       fetchUserDescription();
     }
   }, [userId]);
+
   useEffect(() => {
     if (userId && user) {
       fetchProfiles();
     }
   }, [userId, user]);
+
   console.log("profiles", profiles);
+
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         data={profiles}
-        keyExtractor={(item) => item.id}
+        // MODIFIÉ ICI: keyExtractor pour être plus robuste
+        keyExtractor={(item, index) => {
+          // Utilisez item.id ou item._id si présent, sinon fallback sur l'index (moins idéal pour de vrais IDs)
+          // La condition typeof item.id === 'string' && item.id.length > 0 assure que c'est une clé valide.
+          return (typeof item.id === 'string' && item.id.length > 0) ? item.id : (item._id || index.toString());
+        }}
         renderItem={({ item, index }) => (
           <Profile
-            key={index}
+            // MODIFIÉ ICI: Clé pour le composant Profile, utilisant la même logique robuste
+            key={(typeof item.id === 'string' && item.id.length > 0) ? item.id : (item._id || index.toString())}
             item={item}
             userId={userId}
             setProfiles={setProfiles}
